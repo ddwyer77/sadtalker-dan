@@ -30,7 +30,8 @@ try:
                            text=True, 
                            check=True)
     print("ffmpeg is installed and working")
-    print(f"Version: {result.stdout.split('\\n')[0]}")
+    first_line = result.stdout.split('\n')[0]
+    print(f"Version: {first_line}")
 except subprocess.CalledProcessError:
     print("⚠️ ffmpeg test failed")
 except FileNotFoundError:
