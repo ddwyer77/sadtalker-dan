@@ -1,0 +1,39 @@
+# Git
+.git
+.gitignore
+
+# Large models and files (will be downloaded during container startup)
+checkpoints/*.pth
+checkpoints/*.safetensors
+checkpoints/*.tar
+checkpoints/BFM
+checkpoints/hub
+gfpgan/weights
+
+# Python caches and environments
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+sadtalker_env/
+env/
+venv/
+ENV/
+
+# Temp files and results
+temp/
+results/
+*.mp4
+*.avi
+*.png
+*.jpg
+*.jpeg
+*.log
+
+# Other unnecessary files
+.DS_Store
+.idea
+.vscode
+*.swp
+*.swo 

@@ -1,0 +1,49 @@
+{
+  "name": "SadTalker GPU",
+  "description": "SadTalker with GPU acceleration for creating talking face animations from a single image and audio input.",
+  "repository": "https://github.com/ddwyer77/sadtalker-dan",
+  "restart_policy": "on-failure",
+  "run_config": {
+    "ports": [
+      {
+        "published": 7860,
+        "target": 7860,
+        "protocol": "tcp"
+      }
+    ],
+    "env": {
+      "PYTHONPATH": "/workspace"
+    },
+    "command": "/workspace/runpod_startup.sh"
+  },
+  "template_version": 1,
+  "hardware": {
+    "machine": {
+      "gpus": 1
+    }
+  },
+  "readme": {
+    "filepath": "README.md"
+  },
+  "container": {
+    "ports": [7860],
+    "cmd": null,
+    "volumes": [
+      {
+        "host": "checkpoints",
+        "container": "/workspace/checkpoints"
+      },
+      {
+        "host": "results",
+        "container": "/workspace/results"
+      }
+    ],
+    "shm": true
+  },
+  "health_check": {
+    "type": "http",
+    "endpoint": "/",
+    "port": 7860
+  },
+  "tags": ["AI", "Video Generation", "Talking Heads", "Animation", "GPU"]
+} 
