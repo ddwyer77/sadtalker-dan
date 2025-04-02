@@ -45,12 +45,18 @@ def sadtalker_demo(checkpoint_path='checkpoints', config_path='src/config', warp
                             driven_audio = gr.Audio(label="Input audio", type="filepath")
 
                         if sys.platform != 'win32' and not in_webui: 
-                            from src.utils.text2speech import TTSTalker
-                            tts_talker = TTSTalker()
-                            with gr.Column():
-                                input_text = gr.Textbox(label="Generating audio from text", lines=5, placeholder="please enter some text here, we genreate the audio from text using @Coqui.ai TTS.")
-                                tts = gr.Button('Generate audio', elem_id="sadtalker_audio_generate")
-                                tts.click(fn=tts_talker.test, inputs=[input_text], outputs=[driven_audio])
+                            try:
+                                from src.utils.text2speech import TTSTalker, tts_available
+                                if tts_available:
+                                    tts_talker = TTSTalker()
+                                    with gr.Column():
+                                        input_text = gr.Textbox(label="Generating audio from text", lines=5, placeholder="please enter some text here, we genreate the audio from text using @Coqui.ai TTS.")
+                                        tts = gr.Button('Generate audio', elem_id="sadtalker_audio_generate")
+                                        tts.click(fn=tts_talker.test, inputs=[input_text], outputs=[driven_audio])
+                                else:
+                                    gr.Markdown("Text-to-speech module (TTS) is not installed. To enable this feature, install it with: pip install TTS")
+                            except ImportError:
+                                gr.Markdown("Text-to-speech module (TTS) is not installed. To enable this feature, install it with: pip install TTS")
                             
             with gr.Column(): 
                 with gr.Tabs(elem_id="sadtalker_checkbox"):
