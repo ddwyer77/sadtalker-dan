@@ -38,4 +38,5 @@ fi
 
 # Start the web UI automatically
 echo "Starting web UI..."
-python app_sadtalker.py --listen=0.0.0.0 --port=7860 
+# This approach uses the modified app_sadtalker.py with proper binding parameters
+python app_sadtalker.py 

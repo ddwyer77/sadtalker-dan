@@ -9,7 +9,7 @@ echo "=== Setting up SadTalker ==="
 # Install ffmpeg if not already installed
 if ! which ffmpeg >/dev/null 2>&1; then
   echo "Installing ffmpeg..."
-  sudo apt-get update && sudo apt-get install -y ffmpeg
+  apt-get update && apt-get install -y ffmpeg
 else
   echo "ffmpeg already installed."
 fi
@@ -45,8 +45,9 @@ echo "Setup complete! Run the web UI now? (y/n)"
 read -r response
 if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
   echo "Starting web UI..."
-  python app_sadtalker.py --listen=0.0.0.0 --port=7860
+  # Use the updated app_sadtalker.py which has proper binding parameters
+  python app_sadtalker.py
 else
   echo "You can run the web UI later with:"
-  echo "python app_sadtalker.py --listen=0.0.0.0 --port=7860"
+  echo "python app_sadtalker.py"
 fi 
