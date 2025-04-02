@@ -33,30 +33,30 @@ def sadtalker_demo(checkpoint_path='checkpoints', config_path='src/config', warp
                      <a style='font-size:18px;color: #efefef' href='https://github.com/Winfredy/SadTalker'> Github </div>")
         
         with gr.Row(equal_height=False):
-            with gr.Column(variant='panel'):
+            with gr.Column(container=True):
                 with gr.Tabs(elem_id="sadtalker_source_image"):
                     with gr.TabItem('Upload image'):
                         with gr.Row():
-                            source_image = gr.Image(label="Source image", source="upload", type="filepath", elem_id="img2img_image", width=512)
+                            source_image = gr.Image(label="Source image", sources=["upload"], type="filepath", elem_id="img2img_image", width=512)
 
                 with gr.Tabs(elem_id="sadtalker_driven_audio"):
                     with gr.TabItem('Upload OR TTS'):
-                        with gr.Column(variant='panel'):
-                            driven_audio = gr.Audio(label="Input audio", source="upload", type="filepath")
+                        with gr.Column(container=True):
+                            driven_audio = gr.Audio(label="Input audio", sources=["upload"], type="filepath")
 
                         if sys.platform != 'win32' and not in_webui: 
                             from src.utils.text2speech import TTSTalker
                             tts_talker = TTSTalker()
-                            with gr.Column(variant='panel'):
+                            with gr.Column(container=True):
                                 input_text = gr.Textbox(label="Generating audio from text", lines=5, placeholder="please enter some text here, we genreate the audio from text using @Coqui.ai TTS.")
-                                tts = gr.Button('Generate audio',elem_id="sadtalker_audio_generate", variant='primary')
+                                tts = gr.Button('Generate audio', elem_id="sadtalker_audio_generate", size="lg")
                                 tts.click(fn=tts_talker.test, inputs=[input_text], outputs=[driven_audio])
                             
-            with gr.Column(variant='panel'): 
+            with gr.Column(container=True): 
                 with gr.Tabs(elem_id="sadtalker_checkbox"):
                     with gr.TabItem('Settings'):
                         gr.Markdown("need help? please visit our [best practice page](https://github.com/OpenTalker/SadTalker/blob/main/docs/best_practice.md) for more detials")
-                        with gr.Column(variant='panel'):
+                        with gr.Column(container=True):
                             # width = gr.Slider(minimum=64, elem_id="img2img_width", maximum=2048, step=8, label="Manually Crop Width", value=512) # img2img_width
                             # height = gr.Slider(minimum=64, elem_id="img2img_height", maximum=2048, step=8, label="Manually Crop Height", value=512) # img2img_width
                             pose_style = gr.Slider(minimum=0, maximum=46, step=1, label="Pose style", value=0) # 
@@ -65,7 +65,7 @@ def sadtalker_demo(checkpoint_path='checkpoints', config_path='src/config', warp
                             is_still_mode = gr.Checkbox(label="Still Mode (fewer head motion, works with preprocess `full`)")
                             batch_size = gr.Slider(label="batch size in generation", step=1, maximum=10, value=2)
                             enhancer = gr.Checkbox(label="GFPGAN as Face enhancer")
-                            submit = gr.Button('Generate', elem_id="sadtalker_generate", variant='primary')
+                            submit = gr.Button('Generate', elem_id="sadtalker_generate", size="lg")
                             
                 with gr.Tabs(elem_id="sadtalker_genearted"):
                         gen_video = gr.Video(label="Generated video", format="mp4", width=256)
